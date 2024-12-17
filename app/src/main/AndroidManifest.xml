@@ -5,9 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon_radio"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RadioStation_Application"
         tools:targetApi="31">
@@ -15,13 +14,13 @@
             android:name=".ui.RadioActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.RadioStation_Application">
+            >
         </activity>
         <activity
             android:name=".ui.SplashActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.RadioStation_Application">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

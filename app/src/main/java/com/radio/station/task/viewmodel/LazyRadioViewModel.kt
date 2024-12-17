@@ -1,11 +1,11 @@
 package com.radio.station.task.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.radio.station.task.model.radioStation
 import com.radio.station.task.repository.LazyRadioRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
 class LazyRadioViewModel(private val repository: LazyRadioRepository) : ViewModel() {

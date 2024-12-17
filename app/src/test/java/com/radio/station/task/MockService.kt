@@ -1,4 +1,3 @@
-/*
 package com.radio.station.task
 
 import com.radio.station.task.api.RadioApiServices
@@ -21,17 +20,17 @@ class MockApiService : RadioApiServices {
         // Return mock availability data based on the station's UUID
         return when (uuid) {
             "uuid1" -> listOf(
-                stationAvailabilty("online", "2024-12-14 12:42:29"),
-                stationAvailabilty("offline", "2024-12-14 12:42:29")
+                stationAvailabilty("Available", "2024-12-14 12:42:29"),
+                stationAvailabilty("unAvailable", "2024-12-14 12:42:29")
             )
             "uuid2" -> listOf(
-                stationAvailabilty("offline", "2024-12-14 12:42:29")
+                stationAvailabilty("unAvailable", "2024-12-14 12:42:29")
             )
             "uuid3" -> listOf(
-                stationAvailabilty("online", "2024-12-14 12:42:29"),
-                stationAvailabilty("online", "2024-12-14 12:42:29")
+                stationAvailabilty("Available", "2024-12-14 12:42:29"),
+                stationAvailabilty("Available", "2024-12-14 12:42:29")
             )
             else -> emptyList()
         }
     }
-}*/
+}

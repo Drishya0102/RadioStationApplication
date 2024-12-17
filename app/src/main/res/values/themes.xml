@@ -2,7 +2,7 @@
 <resources>
 
     <style name="Theme.RadioStation_Application" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your app's theme -->
+        <!-- Customize app's theme -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryDark">@color/purple_700</item>
         <item name="colorAccent">@color/teal_200</item>

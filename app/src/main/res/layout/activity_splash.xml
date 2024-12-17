@@ -15,13 +15,13 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:src="@drawable/icon_radio"
-            android:id="@+id/imgSplashlogo"/>
+            android:id="@+id/imgSplashLogo"/>
 
         <TextView
             style="@style/Base.TextAppearance.AppCompat.Headline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imgSplashlogo"
+            android:layout_below="@id/imgSplashLogo"
             android:text="@string/welcome_text"
             android:layout_marginTop="15dp"
             android:typeface="sans"
