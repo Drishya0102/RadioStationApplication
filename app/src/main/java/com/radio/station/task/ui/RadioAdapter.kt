@@ -1,3 +1,4 @@
+/*
 package com.radio.station.task.ui
 
 import android.graphics.Color
@@ -7,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.radio.station.task.databinding.CustomRadiostationsBinding
 import com.radio.station.task.model.radioStation
 
-class RadioAdapter(private val stations: List<Pair<radioStation, String>>) :
+class RadioAdapter(private val stations: List<radioStation>)://List<Pair<radioStation, String>>) :
     RecyclerView.Adapter<RadioAdapter.StationViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StationViewHolder {
@@ -28,7 +29,7 @@ class RadioAdapter(private val stations: List<Pair<radioStation, String>>) :
         fun bind(station: radioStation, status: String) {
             binding.stationName.text = station.name
             binding.stationCountry.text = station.country
-            binding.stationStatus.text = status
+            binding.stationStatus.text = station.url
 
             // Change color based on availability status
             binding.stationStatus.setTextColor(
@@ -41,3 +42,4 @@ class RadioAdapter(private val stations: List<Pair<radioStation, String>>) :
         }
     }
 }
+*/

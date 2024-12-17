@@ -10,8 +10,8 @@ interface RadioApiServices {
     @GET("json/stations/bylanguage/english")
     suspend fun getEnglishStations() : List<radioStation>
 
-    @GET("json/checks/{uuid}")
-    suspend fun getStationAvailability(@Path("uuid") stationUuid: String): List<stationAvailabilty>
+    @GET("json/checks/{stationuuid}")
+    suspend fun getStationAvailability(@Path("stationuuid") stationUuid: String): List<stationAvailabilty>
 
 
 }

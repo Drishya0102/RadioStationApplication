@@ -1,39 +1,57 @@
 package com.radio.station.task.repository
 
+import com.google.gson.JsonParseException
 import com.radio.station.task.api.RadioApiServices
 import com.radio.station.task.api.RetrofitInstance
 import com.radio.station.task.model.radioStation
+import com.radio.station.task.model.stationAvailabilty
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import java.io.IOException
 
 
 class RadioRepository {
 
     private val apiService = RetrofitInstance.apiService
+    suspend fun getStationsWithAvailability(): List<radioStation> = withContext(Dispatchers.IO) {
+        val stations = apiService.getEnglishStations()
 
-    suspend fun getStations(): List<Pair<radioStation, String>>  {
-        return withContext(Dispatchers.IO) {
-            try {
-                val stations = apiService.getEnglishStations()
-                stations.map { station ->
-                    val availability = fetchLatestAvailability(station.uuid)
-                    station to availability
+        // Fetch availability concurrently
+        coroutineScope {
+            val stationChecks = stations.chunked(20).map { chunk ->
+
+                async {
+                    chunk.map { station ->
+                        val checks = getStationAvailability(station.stationuuid)
+                        val status = checks.maxByOrNull { it.timestamp ?: "00" }
+                            ?.apply { status = "Available" }?.status ?: "unAvailable"
+                        station.copy(url = status)
+                    }
                 }
-            } catch (e: Exception) {
-                emptyList() // Handle error gracefully
-            }
+                // stationChecks.map { it.await() }
+            }.awaitAll()
+            stationChecks.flatten()
         }
     }
 
-    private suspend fun fetchLatestAvailability(stationUuid: String): String {
+    suspend fun getStationAvailability(stationUuid: String): List<stationAvailabilty> {
         return try {
-            val checks = apiService.getStationAvailability(stationUuid)
-            checks.maxByOrNull { it.timestamp }?.status ?: "Not Available"
+            apiService.getStationAvailability(stationUuid)
+        } catch (e: HttpException) {
+            if (e.code() == 429) {
+                // Handle rate-limiting error (429) and return empty list
+                emptyList()
+            } else {
+                emptyList() // Handle other HTTP exceptions
+            }
+        } catch (e: IOException) {
+            emptyList() // Handle network errors
         } catch (e: Exception) {
-            "unknown" // Handle error
+            emptyList() // Handle any other exceptions
         }
     }
 
