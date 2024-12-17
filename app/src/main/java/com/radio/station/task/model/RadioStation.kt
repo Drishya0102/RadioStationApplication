@@ -4,4 +4,4 @@ package com.radio.station.task.model
 
 data class radioStation(val name:String,val stationuuid:String,val country:String,val url:String)
 
-data class stationAvailabilty(val status:String,val timestamp: String)
+data class stationAvailabilty(var status:String, val timestamp: String)
