@@ -16,7 +16,7 @@ import com.radio.station.task.viewmodel.RadioViewModelFactory
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: RadioViewModel
-    private lateinit var adapter: RadioAdapter
+    private lateinit var adapter: StationAdapter//RadioAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,10 +27,12 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.radioRecycle)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = StationAdapter()
+        recyclerView.adapter = adapter
 
         viewModel.stations.observe(this, Observer { stations ->
-            adapter = RadioAdapter(stations)
-            recyclerView.adapter = adapter
+            //adapter=RadioAdapter(stations)
+            adapter.submitList(stations)
         })
 
         viewModel.loading.observe(this, Observer { isLoading ->
