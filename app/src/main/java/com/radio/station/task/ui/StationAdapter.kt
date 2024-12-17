@@ -22,7 +22,7 @@ class StationAdapter : RecyclerView.Adapter<StationAdapter.StationViewHolder>() 
 
                 // Change color based on availability status
                 binding.stationStatus.setTextColor(
-                    if (station.url == "Online") {
+                    if (station.url == "Available") {
                         Color.GREEN
                     } else {
                         Color.RED

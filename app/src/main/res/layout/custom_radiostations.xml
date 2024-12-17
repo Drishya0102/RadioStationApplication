@@ -49,6 +49,7 @@
             android:layout_height="wrap_content"
             android:text="Hobbies: Sunbathing"
             android:gravity="center"
+            android:textStyle="bold"
             android:layout_marginRight="20dp"
             android:textColor="@android:color/holo_green_dark"/>
 
