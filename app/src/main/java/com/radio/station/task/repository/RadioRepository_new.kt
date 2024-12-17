@@ -8,6 +8,7 @@ import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
+import kotlinx.coroutines.*
 
 class RadioRepository_new {
 
@@ -44,7 +45,7 @@ class RadioRepository_new {
         }
     }
 
-
+    //this code works fine take too much time
     // Combine station data and availability status, handle errors gracefully
     suspend fun getStationsWithAvailability(): List<radioStation> {
         return try{
@@ -81,6 +82,50 @@ class RadioRepository_new {
             Log.d("RadioRepository", "getStationsWithAvailability executed")
         }
     }
+
+    //new code for less loading time
+ /*   suspend fun getStationsWithAvailability(): List<radioStation> {
+        return try {
+            // Fetch the list of stations in English
+            val stations = getAllStations()
+
+            // Start fetching availability for each station concurrently
+            val availabilityDeferreds = stations.map { station ->
+                // Launch each station availability fetch concurrently
+                async {
+                    try {
+                        // Fetch the availability for the current station
+                        val availability = getStationAvailability(station.stationuuid)
+                        // Get the most recent availability status, fallback to "Unknown" in case of error
+                        if(availability.size==0)
+                        {
+                            station.copy(url = "unAvailable")
+                        }
+                        else {
+                            val latestStatus = getLatestAvailability(availability)
+                            station.copy(url = latestStatus)
+                        }
+                    } catch (e: Exception) {
+                        // In case of error, set status to "Unknown"
+                        station.copy(url = "unAvailable")
+                    }
+                }
+            }
+
+            // Await all the results of concurrent requests
+            val stationsWithStatus = availabilityDeferreds.awaitAll()
+
+            // Return the list of stations with their updated availability statuses
+            stationsWithStatus
+        } catch (e: Exception) {
+            Log.e("RadioRepository", "Error fetching stations with availability: ${e.message}")
+            emptyList() // Return an empty list in case of an error
+        } finally {
+            // Optionally, log that the fetch process is completed
+            Log.d("RadioRepository", "Completed fetching stations with availability.")
+        }
+    }*/
+
 
     // Fetch station availability by station UUID
     suspend fun getStationAvailability(stationUuid: String): List<stationAvailabilty> {

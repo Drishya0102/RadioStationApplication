@@ -15,11 +15,11 @@ import com.radio.station.task.repository.RadioRepository_new
     }
 }*/
 
-class RadioViewModelFactory (private val repository: RadioRepository_new) : ViewModelProvider.Factory {
+class RadioViewModelFactory (private val repository: RadioRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(RadioViewModel_new::class.java)) {
+        if (modelClass.isAssignableFrom(RadioViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return RadioViewModel_new(repository) as T
+            return RadioViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

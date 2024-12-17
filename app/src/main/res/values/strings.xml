@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RadioStation_Application</string>
+    <string name="welcome_text">Welcome to \n All in One Radio Station</string>
 </resources>
